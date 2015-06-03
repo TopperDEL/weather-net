@@ -154,6 +154,62 @@ namespace WeatherNet.Util.Data
             return new Result<SixteenDaysForecastResult>(weatherDailies, true, TimeHelper.MessageSuccess);
         }
 
+        public static Result<HistoricWeatherResult> GetHistoryWeatherHourly(JObject response)
+        {
+            var error = GetServerErrorFromResponse(response);
+
+            if (!String.IsNullOrEmpty(error))
+                return new Result<HistoricWeatherResult>(null, false, error);
+
+            var historicWeatherResults = new List<HistoricWeatherResult>();
+
+            var responseItems = JArray.Parse(response["list"].ToString());
+            foreach (var item in responseItems)
+            {
+                var weatherDaily = new HistoricWeatherResult();
+
+
+                if (item["weather"] != null)
+                {
+                    weatherDaily.Title = Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(item["weather"][0]["main"])));
+                    weatherDaily.Description = Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(item["weather"][0]["description"])));
+                    weatherDaily.Icon = Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(item["weather"][0]["icon"])));
+                }
+                if (item["main"] != null)
+                {
+                    weatherDaily.Temp = Convert.ToDouble(item["main"]["temp"]);
+                    weatherDaily.TempMax = Convert.ToDouble(item["main"]["max"]);
+                    weatherDaily.TempMin = Convert.ToDouble(item["main"]["min"]);
+                    weatherDaily.Pressure = Convert.ToDouble(item["main"]["pressure"]);
+                    weatherDaily.Humidity = Convert.ToDouble(item["main"]["humidity"]);
+
+                }
+                if (item["wind"] != null)
+                {
+                    weatherDaily.WindSpeed = Convert.ToDouble(item["wind"]["speed"]);
+                    weatherDaily.WindDirection = Convert.ToDouble(item["wind"]["deg"]);
+                    weatherDaily.WindGustSpeed = Convert.ToDouble(item["wind"]["gust"]);
+                }
+
+                if (item["clouds"] != null)
+                {
+                    weatherDaily.Clouds = Convert.ToDouble(item["clouds"]["all"]);
+                }
+
+                if (item["rain"] != null)
+                {
+                    weatherDaily.Rain = Convert.ToDouble(item["rain"]["3h"]);
+                }
+                
+                weatherDaily.Date = TimeHelper.ToDateTime(Convert.ToInt32(item["dt"]));
+
+                historicWeatherResults.Add(weatherDaily);
+            }
+
+            return new Result<HistoricWeatherResult>(historicWeatherResults, true, TimeHelper.MessageSuccess);
+        }
+
+
         public static string GetServerErrorFromResponse(JObject response)
         {
             if (response["cod"].ToString() == "200")
