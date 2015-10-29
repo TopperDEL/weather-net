@@ -46,12 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientSettings.cs" />
+    <Compile Include="Clients\HistoricWeather.cs" />
     <Compile Include="Clients\SixteenDaysForecast.cs" />
     <Compile Include="Clients\FiveDaysForecast.cs" />
     <Compile Include="Clients\CurrentWeather.cs" />
+    <Compile Include="Model\HistoricWeatherResult.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Util\Api\ApiClient.cs" />
     <Compile Include="Util\Data\Deserializer.cs" />
+    <Compile Include="Util\Data\TemperatureHelper.cs" />
     <Compile Include="Util\Data\TimeHelper.cs" />
     <Compile Include="Model\CurrentWeatherResult.cs" />
     <Compile Include="Model\SixteenDaysForecastResult.cs" />

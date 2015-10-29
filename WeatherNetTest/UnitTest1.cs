@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WeatherNet;
 using WeatherNet.Clients;
@@ -171,5 +172,63 @@ namespace WeatherNetTest
             Assert.IsTrue(result.Items.Count > 0);
             Assert.IsNotNull(result.Items[0]);
         }
+
+        [TestMethod]
+        public void GetHistoryByCityNameTest()
+        {
+            ClientSettings.ApiKey = "1234567890";
+
+            //Exist
+            var result = HistoricWeather.GetByCityName("Dublin", "Ireland", DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Items);
+            Assert.IsTrue(result.Items.Count > 0);
+            Assert.IsNotNull(result.Items[0]);
+
+            //Does not exist
+            result = HistoricWeather.GetByCityName("testcitytest", "testcitytest", DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.Items);
+
+
+
+        }
+
+        [TestMethod]
+        public void GetHistoryByCityIdTest()
+        {
+            ClientSettings.ApiKey = "1234567890";
+
+            //Does not exist
+            var result = HistoricWeather.GetByCityId(1111111, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.Items);
+
+            //Exist
+            result = HistoricWeather.GetByCityId(2885679, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Items);
+            Assert.IsTrue(result.Items.Count > 0);
+            Assert.IsNotNull(result.Items[0]);
+        }
+
+        [TestMethod]
+        public void GetHistoryByCityCoordinatesTest()
+        {
+            ClientSettings.ApiKey = "1234567890";
+
+            //Does not exist
+            var result = HistoricWeather.GetByCoordinates(-1984453.363665, -1984453.363665, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.Items);
+
+            //Exist
+            result = HistoricWeather.GetByCoordinates(53.363665, -6.255541, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6), "se", "metric");
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Items);
+            Assert.IsTrue(result.Items.Count > 0);
+            Assert.IsNotNull(result.Items[0]);
+        }
+
     }
 }
