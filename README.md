@@ -31,8 +31,7 @@ var result =  await CurrentWeather.GetByCityNameAsync("Stockholm", "Sweden", "en
 * JSON.net
 
 ####Nuget package
-Available at [https://www.nuget.org/packages/WeatherNet](https://www.nuget.org/packages/WeatherNet)
-The UWP-NuGet-Packages needs some more time. I've never done this before. :)
+Available at [https://www.nuget.org/packages/WeatherNet.uwp](https://www.nuget.org/packages/WeatherNet.uwp)
 
 ####License
 This bundle is under the MIT license. For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
