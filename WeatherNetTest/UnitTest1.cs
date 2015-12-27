@@ -16,7 +16,7 @@ namespace WeatherNetTest
         {
             //Specifying optional settings
             ClientSettings.ApiUrl = "http://api.openweathermap.org/data/2.5";
-            ClientSettings.ApiKey = "123456789"; //Provide your own ApiKey here
+            ClientSettings.ApiKey = "2de143494c0b295cca9337e1e96b00e0"; //Provide your own ApiKey here, this is just for testing
 
 
             //Exist
