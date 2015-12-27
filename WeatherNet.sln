@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherNet", "WeatherNet\WeatherNet.csproj", "{A7A99412-5F99-4B4F-AFCF-90AA4B1EEB90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherNetTest", "WeatherNetTest\WeatherNetTest.csproj", "{97952621-1EA3-4A3D-9C80-983594CCC556}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherNetUWP", "WeatherNetUWP\WeatherNetUWP.csproj", "{0DDD635F-4B59-4689-AE51-83404D44C2AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherNetUWPTest", "WeatherNetUWPTest\WeatherNetUWPTest.csproj", "{36A81464-F4F6-4BB8-BA10-7234D55DFC93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,28 @@ Global
 		{0DDD635F-4B59-4689-AE51-83404D44C2AF}.Release|x64.Build.0 = Release|x64
 		{0DDD635F-4B59-4689-AE51-83404D44C2AF}.Release|x86.ActiveCfg = Release|x86
 		{0DDD635F-4B59-4689-AE51-83404D44C2AF}.Release|x86.Build.0 = Release|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|Any CPU.Build.0 = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|Any CPU.Deploy.0 = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|ARM.ActiveCfg = Debug|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|ARM.Build.0 = Debug|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|ARM.Deploy.0 = Debug|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x64.ActiveCfg = Debug|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x64.Build.0 = Debug|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x64.Deploy.0 = Debug|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x86.ActiveCfg = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x86.Build.0 = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Debug|x86.Deploy.0 = Debug|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|Any CPU.ActiveCfg = Release|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|ARM.ActiveCfg = Release|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|ARM.Build.0 = Release|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|ARM.Deploy.0 = Release|ARM
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x64.ActiveCfg = Release|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x64.Build.0 = Release|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x64.Deploy.0 = Release|x64
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x86.ActiveCfg = Release|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x86.Build.0 = Release|x86
+		{36A81464-F4F6-4BB8-BA10-7234D55DFC93}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

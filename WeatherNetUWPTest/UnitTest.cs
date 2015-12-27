@@ -1,18 +1,16 @@
-﻿#region
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using WeatherNet;
 using WeatherNet.Clients;
+using System.Threading.Tasks;
 
-#endregion
-
-namespace WeatherNetTest
+namespace WeatherNetUWPTest
 {
     [TestClass]
     public class UnitTest1
     {
         [TestMethod]
-        public void GetCurrentWeatherByCityNameTest()
+        public async Task GetCurrentWeatherByCityNameTest()
         {
             //Specifying optional settings
             ClientSettings.ApiUrl = "http://api.openweathermap.org/data/2.5";
@@ -20,65 +18,65 @@ namespace WeatherNetTest
 
 
             //Exist
-            var result = CurrentWeather.GetByCityName("Dublin", "Ireland", "se", "metric");
+            var result = await CurrentWeather.GetByCityNameAsync("Dublin", "Ireland", "se", "metric");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
 
 
-            result = CurrentWeather.GetByCityName("Dublin", "Ireland", "nl", "imperial");
+            result = await CurrentWeather.GetByCityNameAsync("Dublin", "Ireland", "nl", "imperial");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
         }
 
         [TestMethod]
-        public void GetCurrentCurrentWeatherByCityIdTest()
+        public async Task GetCurrentCurrentWeatherByCityIdTest()
         {
             //Does not exist
-            var result = CurrentWeather.GetByCityId(1111111);
+            var result = await CurrentWeather.GetByCityIdAsync(1111111);
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Item);
 
             //Exist
-            result = CurrentWeather.GetByCityId(2964574);
+            result = await CurrentWeather.GetByCityIdAsync(2964574);
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
         }
 
         [TestMethod]
-        public void GetCurrentCurrentWeatherByCityCoordinatesTest()
+        public async Task GetCurrentCurrentWeatherByCityCoordinatesTest()
         {
             //Does Not Exist
-            var result = CurrentWeather.GetByCoordinates(-1984453.363665, -1984453.363665);
+            var result = await CurrentWeather.GetByCoordinatesAsync(-1984453.363665, -1984453.363665);
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Item);
 
             //Exist
-            result = CurrentWeather.GetByCoordinates(53.363665, -6.255541);
+            result = await CurrentWeather.GetByCoordinatesAsync(53.363665, -6.255541);
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
 
-            result = CurrentWeather.GetByCoordinates(53.363665, -6.255541, "nl", "imperial");
+            result = await CurrentWeather.GetByCoordinatesAsync(53.363665, -6.255541, "nl", "imperial");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
         }
 
 
         [TestMethod]
-        public void GetFiveDaysForecastByCityNameTest()
+        public async Task GetFiveDaysForecastByCityNameTest()
         {
             //Does not exist
-            var result = FiveDaysForecast.GetByCityName("12345325231432", "32412342134231");
+            var result = await FiveDaysForecast.GetByCityNameAsync("12345325231432", "32412342134231");
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Items);
 
             //Exist
-            result = FiveDaysForecast.GetByCityName("Dublin", "Ireland");
+            result = await FiveDaysForecast.GetByCityNameAsync("Dublin", "Ireland");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
             Assert.IsNotNull(result.Items[0]);
 
-            result = FiveDaysForecast.GetByCityName("Dublin", "Ireland", "de", "metric");
+            result = await FiveDaysForecast.GetByCityNameAsync("Dublin", "Ireland", "de", "metric");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
@@ -86,54 +84,21 @@ namespace WeatherNetTest
         }
 
         [TestMethod]
-        public void GetFiveDaysForecastByCityIdTest()
+        public async Task GetFiveDaysForecastByCityIdTest()
         {
             //Does not exist
-            var result = FiveDaysForecast.GetByCityId(-2964574);
+            var result = await FiveDaysForecast.GetByCityIdAsync(-2964574);
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Items);
 
             //Exist
-            result = FiveDaysForecast.GetByCityId(2964574);
+            result = await FiveDaysForecast.GetByCityIdAsync(2964574);
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
             Assert.IsNotNull(result.Items[0]);
 
-            result = FiveDaysForecast.GetByCityId(2964574, "de", "metric");
-            Assert.IsTrue(result.Success);
-            Assert.IsNotNull(result.Items);
-            Assert.IsTrue(result.Items.Count > 0);
-            Assert.IsNotNull(result.Items[0]);
-        }
-
-        [TestMethod]
-        public void GetFiveDaysForecastByCityCoordinatesTest()
-        {
-            //Does not exist
-            var result = FiveDaysForecast.GetByCoordinates(-1984453.363665, -1984453.363665);
-            Assert.IsFalse(result.Success);
-            Assert.IsNull(result.Items);
-
-            //Exist
-            result = FiveDaysForecast.GetByCoordinates(53.363665, -6.255541, "se", "imperial");
-            Assert.IsTrue(result.Success);
-            Assert.IsNotNull(result.Items);
-            Assert.IsTrue(result.Items.Count > 0);
-            Assert.IsNotNull(result.Items[0]);
-        }
-
-
-        [TestMethod]
-        public void GetSixteenDaysForecastByCityNameTest()
-        {
-            //Does not exist
-            var result = SixteenDaysForecast.GetByCityName("testcitytest2", "testcitytest2", 14);
-            Assert.IsFalse(result.Success);
-            Assert.IsNull(result.Items);
-
-            //Exist
-            result = SixteenDaysForecast.GetByCityName("Dublin", "Ireland", 14);
+            result = await FiveDaysForecast.GetByCityIdAsync(2964574, "de", "metric");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
@@ -141,15 +106,32 @@ namespace WeatherNetTest
         }
 
         [TestMethod]
-        public void GetSixteenDaysForecastByCityIdTest()
+        public async Task GetFiveDaysForecastByCityCoordinatesTest()
         {
             //Does not exist
-            var result = SixteenDaysForecast.GetByCityId(1111111, 5);
+            var result = await FiveDaysForecast.GetByCoordinatesAsync(-1984453.363665, -1984453.363665);
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Items);
 
             //Exist
-            result = SixteenDaysForecast.GetByCityId(2964574, 14);
+            result = await FiveDaysForecast.GetByCoordinatesAsync(53.363665, -6.255541, "se", "imperial");
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Items);
+            Assert.IsTrue(result.Items.Count > 0);
+            Assert.IsNotNull(result.Items[0]);
+        }
+
+
+        [TestMethod]
+        public async Task GetSixteenDaysForecastByCityNameTest()
+        {
+            //Does not exist
+            var result = await SixteenDaysForecast.GetByCityNameAsync("testcitytest2", "testcitytest2", 14);
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.Items);
+
+            //Exist
+            result = await SixteenDaysForecast.GetByCityNameAsync("Dublin", "Ireland", 14);
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
@@ -157,15 +139,31 @@ namespace WeatherNetTest
         }
 
         [TestMethod]
-        public void GetSixteenDaysForecastByCityCoordinatesTest()
+        public async Task GetSixteenDaysForecastByCityIdTest()
         {
             //Does not exist
-            var result = SixteenDaysForecast.GetByCoordinates(-1984453.363665, -1984453.363665, 14);
+            var result = await SixteenDaysForecast.GetByCityIdAsync(1111111, 5);
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Items);
 
             //Exist
-            result = SixteenDaysForecast.GetByCoordinates(53.363665, -6.255541, 14, "se", "metric");
+            result = await SixteenDaysForecast.GetByCityIdAsync(2964574, 14);
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Items);
+            Assert.IsTrue(result.Items.Count > 0);
+            Assert.IsNotNull(result.Items[0]);
+        }
+
+        [TestMethod]
+        public async Task GetSixteenDaysForecastByCityCoordinatesTest()
+        {
+            //Does not exist
+            var result = await SixteenDaysForecast.GetByCoordinatesAsync(-1984453.363665, -1984453.363665, 14);
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.Items);
+
+            //Exist
+            result = await SixteenDaysForecast.GetByCoordinatesAsync(53.363665, -6.255541, 14);//, "se", "metric");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);

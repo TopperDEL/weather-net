@@ -36,7 +36,14 @@ namespace WeatherNet.Util.Data
             {
                 weatherCurrent.Temp = Convert.ToDouble(response["main"]["temp"].Value<double>());
                 weatherCurrent.TempMax = Convert.ToDouble(response["main"]["temp_max"].Value<double>());
-                weatherCurrent.TempMin = Convert.ToDouble(response["main"]["temp_min"].Value<double>());
+                try
+                {
+                    weatherCurrent.TempMin = Convert.ToDouble(response["main"]["temp_min"].Value<double>());
+                }
+                catch
+                {
+                    weatherCurrent.TempMin = 0;
+                }
                 weatherCurrent.Humidity = Convert.ToDouble(response["main"]["humidity"].Value<double>());
             }
 
@@ -140,18 +147,23 @@ namespace WeatherNet.Util.Data
                     weatherDaily.TempNight = Convert.ToDouble(item["temp"]["night"].Value<double>());
                 }
 
-                weatherDaily.Humidity = Convert.ToDouble(item["humidity"].Value<double>());
-                weatherDaily.WindSpeed = Convert.ToDouble(item["speed"].Value<double>());
-                weatherDaily.Clouds = Convert.ToDouble(item["clouds"].Value<double>());
-                weatherDaily.Pressure = Convert.ToDouble(item["pressure"].Value<double>());
-                weatherDaily.Rain = Convert.ToDouble(item["rain"].Value<double>());
+                weatherDaily.Humidity = GetDoubleValue(item, "humidity");
+                weatherDaily.WindSpeed = GetDoubleValue(item, "speed");
+                weatherDaily.Clouds = GetDoubleValue(item, "clouds");
+                weatherDaily.Pressure = GetDoubleValue(item, "pressure");
+                weatherDaily.Rain = GetDoubleValue(item, "rain");
                 weatherDaily.DateUnixFormat = Convert.ToInt32(item["dt"].Value<Int32>());
-                weatherDaily.Date = TimeHelper.ToDateTime(Convert.ToInt32(item["dt"].Value<DateTime>()));
+                weatherDaily.Date = TimeHelper.ToDateTime(weatherDaily.DateUnixFormat);
 
                 weatherDailies.Add(weatherDaily);
             }
 
             return new Result<SixteenDaysForecastResult>(weatherDailies, true, TimeHelper.MessageSuccess);
+        }
+
+        private static double GetDoubleValue(JToken item,string name)
+        {
+            return item[name] != null ? item[name].Value<double>() : 0;
         }
 
         public static string GetServerErrorFromResponse(JObject response)
